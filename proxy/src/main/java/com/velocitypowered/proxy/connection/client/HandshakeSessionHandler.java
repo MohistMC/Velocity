@@ -154,8 +154,11 @@ public class HandshakeSessionHandler implements MinecraftSessionHandler {
   }
 
   private ConnectionType getHandshakeConnectionType(HandshakePacket handshake) {
-    if (handshake.getServerAddress().contains(ModernForgeConstants.MODERN_FORGE_TOKEN)
-            && handshake.getProtocolVersion().noLessThan(ProtocolVersion.MINECRAFT_1_20_2)) {
+    if ((handshake.getServerAddress().contains(ModernForgeConstants.MODERN_FORGE_TOKEN)
+            || handshake.getServerAddress().contains(ModernForgeConstants.MODERN_FORGE_TOKEN0))
+            && handshake.getProtocolVersion().noLessThan(ProtocolVersion.MINECRAFT_1_16_4)) {
+      System.out.println("debug: " + handshake.getServerAddress());
+      System.out.println("debug: " + handshake.getProtocolVersion().toString());
       return new ModernForgeConnectionType(handshake.getServerAddress());
     }
     // Determine if we're using Forge (1.8 to 1.12, may not be the case in 1.13).

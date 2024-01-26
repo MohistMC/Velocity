@@ -18,6 +18,7 @@
 package com.velocitypowered.proxy.connection.forge.modern;
 
 import static com.velocitypowered.proxy.connection.forge.modern.ModernForgeConstants.MODERN_FORGE_TOKEN;
+import static com.velocitypowered.proxy.connection.forge.modern.ModernForgeConstants.MODERN_FORGE_TOKEN0;
 
 import com.velocitypowered.proxy.connection.backend.BackendConnectionPhases;
 import com.velocitypowered.proxy.connection.client.ClientConnectionPhases;
@@ -50,7 +51,13 @@ public class ModernForgeConnectionType extends ConnectionTypeImpl {
     int natVersion = 0;
     int idx = hostName.indexOf('\0');
     if (idx != -1) {
-      for (var pt : hostName.split("\0")) {
+      for (String pt : hostName.split("\0")) {
+        if (pt.startsWith(MODERN_FORGE_TOKEN0)) {
+          if (pt.length() > MODERN_FORGE_TOKEN0.length()) {
+            return "\0" + MODERN_FORGE_TOKEN0 + Integer.parseInt(
+                    pt.substring(MODERN_FORGE_TOKEN0.length())) + "\0";
+          }
+        }
         if (pt.startsWith(MODERN_FORGE_TOKEN)) {
           if (pt.length() > MODERN_FORGE_TOKEN.length()) {
             natVersion = Integer.parseInt(

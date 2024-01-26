@@ -22,4 +22,5 @@ package com.velocitypowered.proxy.connection.forge.modern;
  */
 public class ModernForgeConstants {
   public static final String MODERN_FORGE_TOKEN = "FORGE";
+  public static final String MODERN_FORGE_TOKEN0 = "FML";
 }
